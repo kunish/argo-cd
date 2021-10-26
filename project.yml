@@ -8,3 +8,6 @@ spec:
   description: a collection of homelab applications deployed by kubernetes automation tools
   sourceRepos:
     - "*"
+  destinations:
+    - namespace: app
+      server: https://kubernetes.default.svc
