@@ -10,7 +10,10 @@ spec:
     repoURL: https://github.com/kunish/argo-cd.git
     targetRevision: HEAD
     path: applications
-
   destination:
     server: https://kubernetes.default.svc
     namespace: app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
