@@ -18,5 +18,5 @@ kubectl apply -f project.yml -f application.yml
 
 ### TODO
 
-- [ ] deploy with kustomization
+- [ ] deploy with kustomize
 - [ ] deploy with helm
