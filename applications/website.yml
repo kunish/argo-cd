@@ -45,7 +45,7 @@ metadata:
 
 spec:
   rules:
-    - host: stack.cluster.kuin.sh
+    - host: website.cluster.kuin.sh
       http:
         paths:
           - path: /
