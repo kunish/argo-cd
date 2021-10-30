@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: website
-          image: kunish/website:main
+          image: kunish/website
           ports:
             - containerPort: 80
 
