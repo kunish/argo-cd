@@ -5,6 +5,10 @@ metadata:
   namespace: app
   labels:
     app: website
+  annotations:
+    keel.sh/trigger: poll
+    keel.sh/policy: force
+    keel.sh/pollSchedule: "@every 10s"
 
 spec:
   replicas: 3
