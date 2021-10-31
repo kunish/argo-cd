@@ -1,0 +1,58 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: website-trigger-template
+  namespace: tekton-builds
+
+spec:
+  params:
+    - name: git-revision
+      description: git revision (SHA)
+      default: master
+    - name: git-repo-url
+      description: git repository url
+    - name: git-api-url
+      description: git repository url (master)
+    - name: git-branch
+      description: name of the branch
+    - name: message
+      description: message to print
+      default: This is the default message from webhook
+    - name: namespace
+      description: The namespace to create the resources
+      default: tekton-builds
+    - name: content-type
+      description: The Content-Type of the event
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: website-pipeline-run-
+        namespace: tekton-builds
+      spec:
+        pipelineRef:
+          name: website-pipeline
+        serviceAccountName: tekton-build-bot
+        params:
+          - name: message
+            value: $(params.message)
+          - name: sha
+            value: $(tt.params.git-revision)
+          - name: git-repo-url
+            value: $(tt.params.git-repo-url)
+          - name: git-api-url
+            value: $(tt.params.git-api-url)
+          - name: content-type
+            value: $(params.content-type)
+        workspaces:
+          - name: website
+            volumeClaimTemplate:
+              spec:
+                resources:
+                  requests:
+                    storage: 100Mi
+                accessModes:
+                  - ReadWriteOnce
+          - name: gitcredentials
+            secret:
+              secretName: github-auth-secret
