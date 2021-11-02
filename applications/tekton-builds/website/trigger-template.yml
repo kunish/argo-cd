@@ -18,6 +18,7 @@ spec:
         generateName: website-pipeline-run-
         namespace: tekton-builds
       spec:
+        serviceAccountName: tekton-build-bot
         pipelineRef:
           name: website-pipeline
         params:
@@ -37,11 +38,3 @@ spec:
                     storage: 100Mi
                 accessModes:
                   - ReadWriteOnce
-
-          - name: dockerconfig
-            secret:
-              secretName: dockerconfig
-
-          - name: gitcredentials
-            secret:
-              secretName: github-auth-secret
