@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/kunish/argo-cd.git
     targetRevision: HEAD
-    path: applications
+    path: /
     directory:
       recurse: true
   destination:
