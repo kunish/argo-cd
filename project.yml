@@ -11,5 +11,3 @@ spec:
   destinations:
     - namespace: app
       server: https://kubernetes.default.svc
-    - namespace: tekton-builds
-      server: https://kubernetes.default.svc
