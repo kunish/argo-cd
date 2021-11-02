@@ -1,0 +1,42 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: website-pipeline
+  namespace: tekton-builds
+
+spec:
+  params:
+    - name: git-repo-url
+
+    - name: container_image
+      default: website
+
+  workspaces:
+    - name: website
+    - name: gitcredentials
+    - name: dockerconfig
+
+  tasks:
+    - name: git-clone
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: website
+      params:
+        - name: url
+          value: $(params.git-repo-url)
+
+    - name: build-container-image
+      taskRef:
+        name: kaniko
+      workspaces:
+        - name: source
+          workspace: website
+        - name: dockerconfig
+          workspace: dockerconfig
+      params:
+        - name: IMAGE
+          value: kunish/website
+      runAfter:
+        - git-clone

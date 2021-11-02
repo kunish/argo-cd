@@ -1,0 +1,47 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: website-trigger-template
+  namespace: tekton-builds
+
+spec:
+  params:
+    - name: git-repo-url
+    - name: git-api-url
+    - name: git-branch
+    - name: git-revision
+
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: website-pipeline-run-
+        namespace: tekton-builds
+      spec:
+        pipelineRef:
+          name: website-pipeline
+        params:
+          - name: git-repo-url
+            value: $(tt.params.git-repo-url)
+          - name: git-api-url
+            value: $(tt.params.git-api-url)
+          - name: git-revision
+            value: $(tt.params.git-revision)
+
+        workspaces:
+          - name: website
+            volumeClaimTemplate:
+              spec:
+                resources:
+                  requests:
+                    storage: 100Mi
+                accessModes:
+                  - ReadWriteOnce
+
+          - name: dockerconfig
+            secret:
+              secretName: dockerconfig
+
+          - name: gitcredentials
+            secret:
+              secretName: github-auth-secret
