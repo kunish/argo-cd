@@ -40,5 +40,4 @@ spec:
     namespace: tekton-builds
   syncPolicy:
     automated:
-      prune: true
       selfHeal: true
