@@ -9,6 +9,7 @@ spec:
   source:
     repoURL: https://github.com/kunish/argo-cd.git
     targetRevision: HEAD
+    path: applications
     directory:
       recurse: true
   destination:
@@ -31,6 +32,7 @@ spec:
   source:
     repoURL: https://github.com/kunish/tekton-builds.git
     targetRevision: HEAD
+    path: applications
     directory:
       recurse: true
   destination:
