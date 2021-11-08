@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: umami
-          image: kunish/umami
+          image: ghcr.io/techprober/umami
           ports:
             - containerPort: 3000
           env:
