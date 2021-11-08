@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: website
-          image: kunish/website
+          image: ghcr.io/kunish/website
           ports:
             - containerPort: 80
 
