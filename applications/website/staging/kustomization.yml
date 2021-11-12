@@ -8,12 +8,15 @@ resources:
   - ../production
 
 patches:
-  - path: ingress-patch.json
-    target:
+  - target:
       group: networking.k8s.io
       version: v1
       kind: Ingress
       name: website-ingress
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: website-staging.cluster.kuin.sh
 
 images:
   - name: ghcr.io/kunish/website
