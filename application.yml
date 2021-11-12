@@ -9,7 +9,53 @@ spec:
   source:
     repoURL: https://github.com/kunish/argo-cd.git
     targetRevision: HEAD
-    path: applications
+    path: applications/website/production
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: website-staging
+  namespace: argo-cd
+
+spec:
+  project: homelab
+  source:
+    repoURL: https://github.com/kunish/argo-cd.git
+    targetRevision: HEAD
+    path: applications/website/staging
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: umami
+  namespace: argo-cd
+
+spec:
+  project: homelab
+  source:
+    repoURL: https://github.com/kunish/argo-cd.git
+    targetRevision: HEAD
+    path: applications/umami
     directory:
       recurse: true
   destination:
