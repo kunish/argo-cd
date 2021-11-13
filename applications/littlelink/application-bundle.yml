@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: littlelink-deployment
+  namespace: app
+  labels:
+    app: littlelink
+  annotations:
+    keel.sh/policy: force
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: littlelink
+  template:
+    metadata:
+      labels:
+        app: littlelink
+    spec:
+      containers:
+        - name: littlelink
+          image: ghcr.io/kunish/littlelink
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: littlelink-service
+  namespace: app
+
+spec:
+  selector:
+    app: littlelink
+  ports:
+    - protocol: TCP
+      port: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: littlelink-ingress
+  namespace: app
+
+spec:
+  rules:
+    - host: littlelink.cluster.kuin.sh
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: littlelink-service
+                port:
+                  number: 80
