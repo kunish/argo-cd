@@ -1,0 +1,5 @@
+- op: add
+  path: /metadata/annotations
+  value:
+    keel.sh/policy: force
+    keel.sh/trigger: poll
