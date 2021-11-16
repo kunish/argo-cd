@@ -26,4 +26,4 @@ patches:
 
 images:
   - name: ghcr.io/kunish/website
-    newTag: staging
+    newTag: 1.3.0-staging.1
