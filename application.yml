@@ -101,3 +101,24 @@ spec:
     automated:
       prune: true
       selfHeal: true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: uptime-kuma
+  namespace: argo-cd
+
+spec:
+  project: homelab
+  source:
+    repoURL: https://github.com/kunish/argo-cd.git
+    targetRevision: HEAD
+    path: applications/uptime-kuma
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
