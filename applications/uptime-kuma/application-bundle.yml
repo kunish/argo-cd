@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: uptime-kuma
-          image: ghcr.io/kunish/uptime-kuma
+          image: louislam/uptime-kuma
           ports:
             - containerPort: 3001
 
