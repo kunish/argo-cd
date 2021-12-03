@@ -1,3 +1,16 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: uptime-kuma-pvc
+  namespace: app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Mi
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,6 +36,13 @@ spec:
           image: louislam/uptime-kuma
           ports:
             - containerPort: 3001
+          volumeMounts:
+            - name: uptime-kuma-vol
+              mountPath: /app/data
+      volumes:
+        - name: uptime-kuma-vol
+          persistentVolumeClaim:
+            claimName: uptime-kuma-pvc
 
 ---
 apiVersion: v1
