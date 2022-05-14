@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: umami
-          image: ghcr.io/kunish/umami
+          image: ghcr.io/mikecao/umami:mysql-latest
           ports:
             - containerPort: 3000
           env:
