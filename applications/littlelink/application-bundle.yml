@@ -21,6 +21,7 @@ spec:
       containers:
         - name: littlelink
           image: ghcr.io/kunish/littlelink
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 

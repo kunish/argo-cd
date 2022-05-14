@@ -20,6 +20,7 @@ spec:
     spec:
       containers:
         - name: website
+          imagePullPolicy: Always
           image: ghcr.io/kunish/website
           ports:
             - containerPort: 80
